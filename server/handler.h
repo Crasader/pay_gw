@@ -1,5 +1,6 @@
 #ifndef MPR_PGW_SERVER_HANDLER_H_
 #define MPR_PGW_SERVER_HANDLER_H_
+
 #include "base/macros.h"
 #include "base/libevent_wrapper.h"
 #include "base/thread_pool.h"
@@ -23,8 +24,18 @@ class HttpHandler {
  protected:
   virtual void AddHandlers(libevent::HttpServer* server) = 0;
 
+  void ProxyInterceptor(
+      const libevent::HttpServer::HandlerCallback& local,
+      evhttp_request* request);
+
+  void AddProxyWrappedHandler(
+      libevent::HttpServer* server,
+      const std::string& path,
+      const libevent::HttpServer::HandlerCallback& local_handler);
+
   //void GetAliOrderInfo(evhtp_request* req) const;
-  //void VerifyAli
+  void CreateAliOrderInfo(evhttp_request* req) const;
+
   ThreadPool* const pool_;
   libevent::Base* const event_base_;
   DISALLOW_COPY_AND_ASSIGN(HttpHandler);  

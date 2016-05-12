@@ -22,13 +22,17 @@ CPP_SOURCES := ./base/notification.cc \
 	./net/url.cc \
 	./net/connection_pool.cc \
 	./net/url_fetcher.cc \
+	\
+	./server/handler.cc \
+	./server/pgw_handler.cc \
+	./server/server.cc \
 
 CPP_OBJECTS := $(CPP_SOURCES:.cc=.o)
 
 TESTS := \
 	notification_test \
 	thread_pool_test \
-	task_test \
+	#task_test \
 	sync_task_test \
 	libevent_wrapper_test \
 	url_fetcher_test \
